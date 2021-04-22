@@ -1,0 +1,91 @@
+﻿@page
+@model Nepal_Trip.Pages.TripList.IndexModel
+
+
+<br />
+<div class="container row p-0 m-0">
+    <div class="col-9">
+        <h1 class="text-info">Trip List</h1>
+    </div>
+    <div class="col-2">
+        <a asp-page="Add"class="btn btn-info form-control text-white">Add New Trip</a>
+    </div>
+
+    <div class="col-12 border p-5 mt-5">
+        <form method="post">
+            @if(Model.Trips.Count()>0)
+            {
+                <table class="table table-striped border">
+                    <tr class="table-secondary">
+                        <th>
+                            <lable asp-for="Trips.FirstOrDefault().Name">Name</lable>
+                        </th>
+                        <th>
+                            @*@Html.DisplayNameFor(m=>m.Trips.FirstOrDefault().CountryName)*@
+                            <lable asp-for="Trips.FirstOrDefault().CountryName">Country Name</lable>
+                        </th>
+                        <th>
+                            <lable asp-for="Trips.FirstOrDefault().StartDate">Start Date</lable>
+                        </th>
+                        <th>
+                            <lable asp-for="Trips.FirstOrDefault().EndDate">End Date</lable>
+                        </th>
+                        <th>
+                            <lable asp-for="Trips.FirstOrDefault().Description">Description</lable>
+                        </th>
+                    </tr>
+                    @foreach(var item in Model.Trips)
+                    {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(m => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(m => item.CountryName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(m => item.StartDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(m => item.EndDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(m => item.Description)
+                    </td>
+                    <td>
+                        <button asp-page-handler="Delete" asp-route-id="@item.ID" onclick="return confirm('Are you sure you want to delete?')" class="btn btn-danger btn-sm">Delete</button>
+                        <a asp-page="Edit" asp-route-id="@item.ID" class="btn btn-success btn-sm text-white">Edit</a>
+                    </td>
+                </tr>
+                    }
+                </table>
+            }
+            else
+            {
+                <p>No Trip Available.</p>
+            }
+        </form>
+    </div>
+
+    <div class="col-12" style="text-align:center">
+        <br/>
+        <span class="h3 text-info">OR</span>
+        <br/><br/>
+    </div>
+    <div class="col-12 border p-3">
+        <table id="DT_load" class="table table-striped table-bordered" style="width:100%">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Country Name</th>
+                    <th>Start Date</th>
+                    <th>End Date</th>
+                    <th>Description</th><th></th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+</div>
+@section Scripts{ 
+<script src="~/js/TripList.js"></script>
+}
